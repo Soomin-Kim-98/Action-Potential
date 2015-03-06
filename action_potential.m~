@@ -1,0 +1,46 @@
+function action_potential(method)
+% Strasberg and Defelice Method: Discrete States
+if method
+
+    
+    
+    
+    
+    
+% Fox method: Langevin equation
+else
+    
+end
+end
+% =========================================================================
+% FUNCTION DEFINITIONS
+% =========================================================================
+function am = alpham(V)
+am = 1.872*(V-25.41)/(1-exp((25.41-V)/6.06));
+end
+function bm = betam(V)
+bm = 3.973*(21.001-V)/(1-exp((V-21.001)/9.41));
+end
+function ah = alphah(V)
+ah = -.549*(27.74+V)/(1-exp((V+27.24)/9.06));
+end
+function bh = betah(V)
+bh = 22.57/(1+exp((56.0-V)/12.5))
+end
+function dVdt = transmembranepotential(V, C, R, G, N, E, I)
+% V = trans-membrane Voltage
+% C = membrane Capacitance
+% R = membrane Resistance
+% G = conductance of a single sodium ion channel
+% N = number of sodium channels activated at time t
+dVdt = 1/C*(I - V/R - G*N*(V-E));
+end
+function N = F_algorithm(Nmax,m,h)
+N = Nmax*m^3*h;
+end
+function dmdt = m_fox(am,bm,m,gm)
+dmdt = am*(1-m)-bm*m+gm;
+end
+function dhdt = h_fox(ah,bh,h,gh)
+dhdt = ah*(1-h)-bh*h+gh;
+end
